@@ -1,0 +1,22 @@
+server:
+  http_listen_port: 8889  # Grafana Agent가 메트릭을 노출할 포트
+
+metrics:
+  global:
+    scrape_interval: 15s  # 메트릭 수집 간격
+  receivers:
+    otlp:
+      protocols:
+        grpc:
+        http:
+  processors:
+    batch:
+
+  configs:
+    - name: agent_metrics
+      scrape_configs:
+        - job_name: 'agent'
+          static_configs:
+            - targets: ['localhost:8889']  # Grafana Agent 자체 메트릭을 수집
+      # remote_write:  # 선택적으로, 메트릭을 원격으로 전송할 수도 있습니다.
+      #   - url: 'http://<prometheus-remote-write-endpoint>'
