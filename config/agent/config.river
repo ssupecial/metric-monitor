@@ -10,10 +10,10 @@ otelcol.receiver.otlp "default" {
 }
 
 otelcol.exporter.prometheus "default" {
-    forward_to = [prometheus.remote_write.prometheus.receiver]
+    forward_to = [prometheus.remote_write.local.receiver]
 }
 
-prometheus.remote_write "prometheus" {
+prometheus.remote_write "local" {
     endpoint {
         url = "http://prometheus:9090/api/v1/write"
     }

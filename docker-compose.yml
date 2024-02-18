@@ -12,7 +12,6 @@ services:
       - --web.enable-remote-write-receiver
     ports:
       - 9090:9090
-    restart: always
 
   agent:
     image: grafana/agent:latest
@@ -24,8 +23,6 @@ services:
     ports:
       - 12345:12345
       - 4318:4318   # OTLP over HTTP receiver
-      - 8888:8888   # Prometheus metrics exposed by the collector
-      - 8889:8889   # Prometheus exporter metrics
     command: run --server.http.listen-addr=0.0.0.0:12345 /etc/agent/config.river
   # otel-collector:
   #   image: otel/opentelemetry-collector-contrib:0.67.0
