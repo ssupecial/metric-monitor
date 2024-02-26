@@ -1,3 +1,8 @@
+logging {
+    level = "info"
+    format = "logfmt"
+}
+
 otelcol.receiver.otlp "default" {
     http {
         endpoint = "0.0.0.0:4318"
@@ -5,16 +10,16 @@ otelcol.receiver.otlp "default" {
     }
     
     output {
-        metrics  = [otelcol.exporter.prometheus.default.input]
+        metrics  = [otelcol.exporter.prometheus.metric.input]
     }
 }
 
-otelcol.exporter.prometheus "default" {
-    forward_to = [prometheus.remote_write.local.receiver]
+otelcol.exporter.prometheus "metric" {
+    forward_to = [prometheus.remote_write.metric.receiver]
 }
 
-prometheus.remote_write "local" {
+prometheus.remote_write "metric" {
     endpoint {
-        url = "http://prometheus:9090/api/v1/write"
+        url = "https://grafana.codedang.com/prometheus/api/v1/write"
     }
 }
