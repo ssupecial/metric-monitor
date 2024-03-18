@@ -20,6 +20,6 @@ otelcol.exporter.prometheus "metric" {
 
 prometheus.remote_write "metric" {
     endpoint {
-        url = "https://grafana.codedang.com/prometheus/api/v1/write"
+        url = "http://prometheus:9090/api/v1/write"
     }
 }
